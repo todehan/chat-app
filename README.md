@@ -1,2 +1,2 @@
 # chat-app
-Chat App
+Node chat app using Socket.IO and Redis

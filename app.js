@@ -6,7 +6,8 @@ const logger = require('morgan');
 const dotenv = require("dotenv");
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
+const auth = require('./routes/auth');
+
 
 const app = express();
 dotenv.config();
@@ -26,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'bower_components')));
 
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use("/auth", auth);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

@@ -1,0 +1,14 @@
+const socketio = require("socket.io");
+
+const io = socketio();
+
+const socketApi = {
+    io: io
+};
+
+io.on("connection", socket => {
+    console.log("user connected");
+});
+
+
+module.exports = socketApi;

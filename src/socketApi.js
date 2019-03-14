@@ -1,10 +1,12 @@
 const socketio = require("socket.io");
-
+const socketAuth = require("../middleware/socketAuth");
 const io = socketio();
 
 const socketApi = {
     io: io
 };
+
+io.use(socketAuth);
 
 const redisAdapter = require("socket.io-redis");
 io.adapter(redisAdapter({
@@ -13,7 +15,7 @@ io.adapter(redisAdapter({
 }));
 
 io.on("connection", socket => {
-    console.log("user connected");
+    console.log("user connected: " + socket.request.user.name);
 });
 
 

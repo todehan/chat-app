@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const passport = require("passport");
 const session = require("express-session");
-const redisStore = require("connect-redis")(session);
+const redisStore = require("./helpers/redisStore");
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -31,15 +31,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'bower_components')));
 
 app.use(session({
-  store: new redisStore({
-    host: process.env.REDIS_URI,
-    port: process.env.REDIS_PORT,
-    pass: process.env.REDIS_PASS
-  }),
+  store: redisStore,
   secret: process.env.SESSION_SECRET_KEY,
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: true, maxAge: 14*24*3600000}
+  cookie: { maxAge: 14*24*3600000 }
 }));
 
 app.use(passport.initialize());
